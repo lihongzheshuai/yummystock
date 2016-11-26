@@ -29,5 +29,23 @@
     <scm>
         <connection>git@github.com:lihongzheshuai/yummystock.git</connection>
     </scm>
+    <properties>
+        <lombok.version>1.16.10</lombok.version>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
 </project>
 
