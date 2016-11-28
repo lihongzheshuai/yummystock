@@ -9,13 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>yummystock-spider</artifactId>
+    <artifactId>yummystock-core</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.coderli</groupId>
-            <artifactId>yummystock-core</artifactId>
-        </dependency>
-    </dependencies>
 
 </project>

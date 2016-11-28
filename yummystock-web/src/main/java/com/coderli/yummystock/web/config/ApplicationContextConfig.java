@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableConfigurationProperties
 @ComponentScan(basePackages = "com.codeli.yummystock")
 @Import(EmbeddedServletContainerAutoConfiguration.class)
-public class ApplicationConfig {
+public class ApplicationContextConfig {
     
     
 }

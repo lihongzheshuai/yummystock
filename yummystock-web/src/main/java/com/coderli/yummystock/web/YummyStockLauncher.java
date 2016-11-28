@@ -1,6 +1,6 @@
 package com.coderli.yummystock.web;
 
-import com.coderli.yummystock.web.config.ApplicationConfig;
+import com.coderli.yummystock.web.config.ApplicationContextConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 
@@ -15,7 +15,7 @@ public class YummyStockLauncher {
     
     public static void main(String[] args) {
         log.info("Starting YummyStock.....");
-        SpringApplication.run(ApplicationConfig.class, args);
+        SpringApplication.run(ApplicationContextConfig.class, args);
         log.info("YummyStock started, enjoy it!!!");
     }
     
