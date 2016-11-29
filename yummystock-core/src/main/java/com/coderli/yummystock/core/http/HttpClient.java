@@ -11,8 +11,9 @@ public interface HttpClient {
      *
      * @param url
      * @param type
+     * @param variables
      * @return
      */
-    <T> T getObject(String url, Class<T> type);
+    <T> T getObject(String url, Class<T> type, Object... variables);
     
 }

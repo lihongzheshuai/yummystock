@@ -2,6 +2,7 @@ package com.coderli.yummystock.core.http.impl;
 
 import com.coderli.yummystock.core.http.HttpClient;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,10 +17,13 @@ import org.springframework.web.client.RestTemplate;
 @Scope(value = "prototype")
 public class SimpleHttpClient implements HttpClient {
     
-    private RestTemplate restTemplate = new RestTemplate();
+    private RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
     
     @Override
-    public <T> T getObject(String url, Class<T> type) {
-        return null;
+    public <T> T getObject(String url, Class<T> type, Object... variables) {
+        if (variables == null) {
+            return restTemplate.getForObject(url, type);
+        }
+        return restTemplate.getForObject(url, type, variables);
     }
 }
