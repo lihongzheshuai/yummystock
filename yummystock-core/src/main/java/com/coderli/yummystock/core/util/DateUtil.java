@@ -2,6 +2,9 @@ package com.coderli.yummystock.core.util;
 
 import lombok.NonNull;
 import org.joda.time.DateTime;
+import org.joda.time.Interval;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
 import org.joda.time.format.DateTimeFormat;
 
 import java.util.Date;
@@ -22,4 +25,18 @@ public class DateUtil {
         return formatDate(date, DEFAULT_PATTERN);
     }
     
+    /**
+     * Calculate how many days from the {@param from} to the
+     * {@param to} time.
+     * eg. from 2016-07-08 to 2016-07-10 is 3 days.
+     *
+     * @param from
+     * @param to
+     * @return
+     */
+    public static int calcDayCount(Date from, Date to) {
+        Interval interval = new Interval(from.getTime(), to.getTime());
+        Period period = interval.toPeriod(PeriodType.days());
+        return period.getDays() + 1;
+    }
 }
