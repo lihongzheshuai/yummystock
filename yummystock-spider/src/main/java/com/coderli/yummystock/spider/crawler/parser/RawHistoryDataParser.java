@@ -1,5 +1,6 @@
 package com.coderli.yummystock.spider.crawler.parser;
 
+import com.coderli.yummystock.core.constant.RestorationType;
 import com.coderli.yummystock.core.entity.HistoryStockData;
 
 import java.util.List;
@@ -18,6 +19,6 @@ public interface RawHistoryDataParser {
      * @param rawData raw data
      * @return
      */
-    List<HistoryStockData> parseRawData(String rawData);
+    List<HistoryStockData> parseRawData(String rawData, String fullStockCode, RestorationType restorationType);
     
 }

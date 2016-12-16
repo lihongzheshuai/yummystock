@@ -1,17 +1,20 @@
 package com.coderli.yummystock.spider.crawler;
 
 import com.coderli.yummystock.core.constant.RestorationType;
+import com.coderli.yummystock.core.entity.HistoryStockData;
 import com.coderli.yummystock.core.http.HttpClient;
 import com.coderli.yummystock.core.util.DateUtil;
 import com.coderli.yummystock.core.util.StockCodeUtil;
 import com.coderli.yummystock.core.util.UrlUtil;
-import com.coderli.yummystock.spider.config.HistoryDataSpiderConfigBean;
+import com.coderli.yummystock.spider.crawler.handler.CrawlDataHandler;
+import com.coderli.yummystock.spider.crawler.parser.RawHistoryDataParser;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Crawl data from tencent.
@@ -21,7 +24,7 @@ import java.util.Date;
  */
 @Slf4j
 @Component
-public class TencentCrawler implements SingleStockHistoryDataCrawler {
+public class TencentCrawler extends AbstractSingleStockHistoryDataCrawler {
     
     private static final String PARAM_KEY_VAR = "_var";
     private static final String PARAM_KEY_PARAM = "param";
@@ -29,15 +32,17 @@ public class TencentCrawler implements SingleStockHistoryDataCrawler {
     @Autowired
     private HttpClient httpClient;
     @Autowired
-    private HistoryDataSpiderConfigBean historyDataSpiderConfig;
+    private CrawlDataHandler crawlDataHandler;
+    @Autowired
+    private RawHistoryDataParser rawDataParser;
     
-    @NonNull
-    public String crawlHistoryData(String stockCode,
-                                   Date from, Date to, RestorationType restorationType) {
+    public List<HistoryStockData> crawlHistoryData(@NonNull String stockCode,
+                                                   @NonNull Date from, @NonNull Date to, @NonNull RestorationType restorationType) {
         log.info("Crawl history data of [{}].", stockCode);
         String targetUrl = generateUrl(stockCode, from, to, restorationType);
         log.debug("Target URL is: [{}]", targetUrl);
-        return httpClient.getObject(targetUrl, String.class, null);
+        String responseStr = httpClient.getObject(targetUrl, String.class, null);
+        return rawDataParser.parseRawData(responseStr, StockCodeUtil.getFullStockCode(stockCode), restorationType);
     }
     
     private String generateUrl(String stockCode, Date from, Date to, RestorationType restorationType) {
@@ -63,9 +68,8 @@ public class TencentCrawler implements SingleStockHistoryDataCrawler {
     }
     
     
-    private String getBaseUrl() {
-        return historyDataSpiderConfig.getBaseUrl();
+    @Override
+    public CrawlDataHandler getHandler() {
+        return crawlDataHandler;
     }
-    
-    
 }

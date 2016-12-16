@@ -35,6 +35,7 @@
         <yummystock.version>${project.version}</yummystock.version>
         <lombok.version>1.16.10</lombok.version>
         <apache.httpclient.version>4.5.2</apache.httpclient.version>
+        <guava.version>20.0</guava.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -52,6 +53,11 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${apache.httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

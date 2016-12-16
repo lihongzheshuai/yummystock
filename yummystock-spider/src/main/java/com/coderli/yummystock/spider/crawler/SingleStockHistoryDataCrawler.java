@@ -1,8 +1,10 @@
 package com.coderli.yummystock.spider.crawler;
 
 import com.coderli.yummystock.core.constant.RestorationType;
+import com.coderli.yummystock.core.entity.HistoryStockData;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Request only a single stock history data per time.
@@ -21,6 +23,6 @@ public interface SingleStockHistoryDataCrawler extends HistoryDataCrawler {
      * @param restorationType {@link RestorationType}
      * @return
      */
-    String crawlHistoryData(String stockCode, Date from, Date to, RestorationType restorationType);
+    List<HistoryStockData> crawlHistoryData(String stockCode, Date from, Date to, RestorationType restorationType);
     
 }
