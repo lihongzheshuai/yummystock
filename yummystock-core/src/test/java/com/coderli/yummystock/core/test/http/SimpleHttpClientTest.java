@@ -1,7 +1,7 @@
 package com.coderli.yummystock.core.test.http;
 
 import com.coderli.yummystock.core.http.HttpClient;
-import com.coderli.yummystock.core.http.impl.SimpleHttpClient;
+import com.coderli.yummystock.core.http.impl.SimpleRestHttpClient;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public class SimpleHttpClientTest {
     
     @Before
     public void init() {
-        httpClient = new SimpleHttpClient();
+        httpClient = new SimpleRestHttpClient();
     }
     
     @Test

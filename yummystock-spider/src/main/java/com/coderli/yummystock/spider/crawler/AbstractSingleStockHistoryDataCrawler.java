@@ -15,4 +15,8 @@ public abstract class AbstractSingleStockHistoryDataCrawler implements SingleSto
     protected String getBaseUrl() {
         return historyDataSpiderConfig.getBaseUrl();
     }
+    
+    protected String getTempPath() {
+        return historyDataSpiderConfig.getTempPath();
+    }
 }

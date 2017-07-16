@@ -15,6 +15,7 @@ public class HistoryDataSpiderConfigBean {
     
     private String spiderType;
     private String baseUrl;
+    private String tempPath;
     
     
 }

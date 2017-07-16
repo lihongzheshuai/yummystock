@@ -1,6 +1,5 @@
 package com.coderli.yummystock.core.http.impl;
 
-import com.coderli.yummystock.core.http.HttpClient;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
@@ -15,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @Component
 @Scope(value = "prototype")
-public class SimpleHttpClient implements HttpClient {
+public class SimpleRestHttpClient extends AbstractHttpClient {
     
     private RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
     
@@ -26,4 +25,6 @@ public class SimpleHttpClient implements HttpClient {
         }
         return restTemplate.getForObject(url, type, variables);
     }
+    
+    
 }

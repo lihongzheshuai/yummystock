@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Request only a single stock history data per time.
+ * 单股票历史数据爬取接口
  *
  * @author li.hzh
  * @date 2016-11-29 00:09
@@ -15,7 +15,7 @@ import java.util.List;
 public interface SingleStockHistoryDataCrawler extends HistoryDataCrawler {
     
     /**
-     * Crawl history data by stock code.
+     * 爬取给定股票代码的股票的历史数据
      *
      * @param stockCode       stock code
      * @param from            history date range begin

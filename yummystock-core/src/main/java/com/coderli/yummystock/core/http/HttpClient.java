@@ -1,5 +1,7 @@
 package com.coderli.yummystock.core.http;
 
+import java.io.OutputStream;
+
 /**
  * @author li.hzh
  * @date 2016-11-29 13:21
@@ -7,8 +9,6 @@ package com.coderli.yummystock.core.http;
 public interface HttpClient {
     
     /**
-     * Use HTTP GET method to get object.
-     *
      * @param url
      * @param type
      * @param variables
@@ -16,4 +16,10 @@ public interface HttpClient {
      */
     <T> T getObject(String url, Class<T> type, Object... variables);
     
+    /**
+     * 发送Get请求，将结果写入给定输出流
+     *
+     * @param os
+     */
+    void writeToStream(String url, OutputStream os);
 }

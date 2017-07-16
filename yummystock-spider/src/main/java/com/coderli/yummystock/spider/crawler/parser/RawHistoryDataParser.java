@@ -3,6 +3,7 @@ package com.coderli.yummystock.spider.crawler.parser;
 import com.coderli.yummystock.core.constant.RestorationType;
 import com.coderli.yummystock.core.entity.HistoryStockData;
 
+import java.io.IOException;
 import java.util.List;
 
 /**

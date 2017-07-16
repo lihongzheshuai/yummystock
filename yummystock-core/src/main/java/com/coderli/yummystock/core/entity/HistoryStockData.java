@@ -19,5 +19,6 @@ public class HistoryStockData {
     private long volumeOfTrading;
     private long volumeOfTradingInMoney;
     private double changePercentage;
+    private double turnoverRate;
     
 }
