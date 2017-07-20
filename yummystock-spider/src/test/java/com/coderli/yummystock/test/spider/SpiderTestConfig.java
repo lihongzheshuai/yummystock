@@ -1,6 +1,7 @@
 package com.coderli.yummystock.test.spider;
 
 import com.coderli.yummystock.spider.config.HistoryDataSpiderConfigBean;
+import com.coderli.yummystock.spider.config.StockCodeSpiderConfigBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -20,5 +21,11 @@ public class SpiderTestConfig {
     @ConfigurationProperties(prefix = "spider.historydata")
     public HistoryDataSpiderConfigBean historyDataSpiderConfigBean() {
         return new HistoryDataSpiderConfigBean();
+    }
+    
+    @Bean
+    @ConfigurationProperties(prefix = "spider.stockcodelist")
+    public StockCodeSpiderConfigBean stockCodeSpiderConfigBean() {
+        return new StockCodeSpiderConfigBean();
     }
 }

@@ -1,8 +1,7 @@
-package com.coderli.yummystock.spider;
+package com.coderli.yummystock.spider.spider;
 
 import com.coderli.yummystock.core.entity.Stock;
 import com.coderli.yummystock.core.util.ListUtil;
-import com.coderli.yummystock.spider.config.StockCodeSpiderConfig;
 import com.coderli.yummystock.spider.config.StockCodeSpiderConfigBean;
 import org.springframework.beans.factory.annotation.Autowired;
 

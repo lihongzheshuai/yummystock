@@ -1,4 +1,4 @@
-package com.coderli.yummystock.spider;
+package com.coderli.yummystock.spider.spider;
 
 import com.coderli.yummystock.spider.handler.SpiderDataHandler;
 

@@ -1,9 +1,8 @@
-package com.coderli.yummystock.test.spider.crawler;
+package com.coderli.yummystock.test.spider;
 
 import com.coderli.yummystock.core.constant.RestorationType;
 import com.coderli.yummystock.core.entity.HistoryStockData;
-import com.coderli.yummystock.spider.NetEaseSpider;
-import com.coderli.yummystock.test.spider.SpiderTestConfig;
+import com.coderli.yummystock.spider.spider.NetEaseSpider;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;

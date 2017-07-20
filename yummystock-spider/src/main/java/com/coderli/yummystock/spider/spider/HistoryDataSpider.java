@@ -1,4 +1,4 @@
-package com.coderli.yummystock.spider;
+package com.coderli.yummystock.spider.spider;
 
 /**
  * @author li.hzh

@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 public class HistoryDataSpiderConfigBean {
     
-    private String spiderType;
+    private String spiderClass;
     private String baseUrl;
     private String tempPath;
     

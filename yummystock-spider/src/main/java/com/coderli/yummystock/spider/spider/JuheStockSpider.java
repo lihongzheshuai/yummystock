@@ -1,4 +1,4 @@
-package com.coderli.yummystock.spider;
+package com.coderli.yummystock.spider.spider;
 
 import com.coderli.yummystock.core.entity.Stock;
 import com.coderli.yummystock.core.http.HttpClient;

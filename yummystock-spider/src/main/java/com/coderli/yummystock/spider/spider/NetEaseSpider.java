@@ -1,4 +1,4 @@
-package com.coderli.yummystock.spider;
+package com.coderli.yummystock.spider.spider;
 
 import com.coderli.yummystock.core.constant.RestorationType;
 import com.coderli.yummystock.core.entity.HistoryStockData;
@@ -9,7 +9,6 @@ import com.coderli.yummystock.core.util.FileUtil;
 import com.coderli.yummystock.core.util.StockCodeUtil;
 import com.coderli.yummystock.spider.handler.SpiderDataHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.FileOutputStream;

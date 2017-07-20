@@ -1,9 +1,10 @@
 package com.coderli.yummystock.core.http.impl;
 
-import org.springframework.context.annotation.Scope;
+import com.coderli.yummystock.core.http.HttpResponseMessageConverter;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Collections;
 
 /**
  * Default HTTP Client implementation.
@@ -12,11 +13,18 @@ import org.springframework.web.client.RestTemplate;
  * @author li.hzh
  * @date 2016-11-29 13:23
  */
-@Component
-@Scope(value = "prototype")
 public class SimpleRestHttpClient extends AbstractHttpClient {
     
     private RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+    private HttpResponseMessageConverter converter;
+    
+    public SimpleRestHttpClient() {
+    }
+    
+    public SimpleRestHttpClient(HttpResponseMessageConverter converter) {
+        this.converter = converter;
+        restTemplate.setMessageConverters(Collections.singletonList(converter));
+    }
     
     @Override
     public <T> T getObject(String url, Class<T> type, Object... variables) {

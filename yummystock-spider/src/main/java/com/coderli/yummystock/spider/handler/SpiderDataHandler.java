@@ -1,4 +1,4 @@
-package com.coderli.yummystock.spider.handler.handler;
+package com.coderli.yummystock.spider.handler;
 
 /**
  * The data handler of crawled data.
@@ -6,7 +6,14 @@ package com.coderli.yummystock.spider.handler.handler;
  * @author li.hzh
  * @date 2016-12-06 23:36
  */
-public interface SpiderDataHandler {
+public interface SpiderDataHandler<T, R> {
     
+    /**
+     * 处理业务数据
+     *
+     * @param t
+     * @return
+     */
+    R handle(T t);
     
 }
