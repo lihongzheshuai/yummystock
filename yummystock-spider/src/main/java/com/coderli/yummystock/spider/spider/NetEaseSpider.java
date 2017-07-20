@@ -1,12 +1,13 @@
-package com.coderli.yummystock.spider.crawler;
+package com.coderli.yummystock.spider;
 
 import com.coderli.yummystock.core.constant.RestorationType;
 import com.coderli.yummystock.core.entity.HistoryStockData;
 import com.coderli.yummystock.core.http.HttpClient;
+import com.coderli.yummystock.core.http.impl.SimpleRestHttpClient;
 import com.coderli.yummystock.core.util.DateUtil;
 import com.coderli.yummystock.core.util.FileUtil;
 import com.coderli.yummystock.core.util.StockCodeUtil;
-import com.coderli.yummystock.spider.crawler.handler.CrawlDataHandler;
+import com.coderli.yummystock.spider.handler.SpiderDataHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class NetEaseCrawler extends AbstractSingleStockHistoryDataCrawler {
+public class NetEaseSpider extends AbstractSingleStockHistoryDataSpider {
     
     private static final String FIELDS_PARAM_STRING = "fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP";
     private static final String CODE_PARAM_KEY = "code";
@@ -34,11 +35,10 @@ public class NetEaseCrawler extends AbstractSingleStockHistoryDataCrawler {
     private static final String FILE_EXT_NAME = ".csv";
     private static final String DATE_FORMAT = "yyyyMMdd";
     
-    @Autowired
-    private HttpClient httpClient;
+    private HttpClient httpClient = new SimpleRestHttpClient();
     
     @Override
-    public CrawlDataHandler getHandler() {
+    public SpiderDataHandler getHandler() {
         return null;
     }
     
@@ -60,7 +60,7 @@ public class NetEaseCrawler extends AbstractSingleStockHistoryDataCrawler {
             return new FileOutputStream(fullPath);
         } catch (IOException e) {
             log.error("Create file " + fullPath + " failed.", e);
-            throw new CrawlerRuntimeException("Create file " + fullPath + " failed.");
+            throw new SpiderRuntimeException("Create file " + fullPath + " failed.");
         }
     }
     

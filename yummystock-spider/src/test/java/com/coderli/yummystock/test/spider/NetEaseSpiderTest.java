@@ -2,8 +2,7 @@ package com.coderli.yummystock.test.spider.crawler;
 
 import com.coderli.yummystock.core.constant.RestorationType;
 import com.coderli.yummystock.core.entity.HistoryStockData;
-import com.coderli.yummystock.spider.crawler.NetEaseCrawler;
-import com.coderli.yummystock.spider.crawler.TencentCrawler;
+import com.coderli.yummystock.spider.NetEaseSpider;
 import com.coderli.yummystock.test.spider.SpiderTestConfig;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -22,10 +21,10 @@ import java.util.List;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpiderTestConfig.class)
-public class NetEaseCrawlerTest {
+public class NetEaseSpiderTest {
     
     @Autowired
-    private NetEaseCrawler netEaseCrawler;
+    private NetEaseSpider netEaseCrawler;
     
     private Date from;
     private Date to;

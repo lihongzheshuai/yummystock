@@ -1,4 +1,4 @@
-package com.coderli.yummystock.spider.crawler;
+package com.coderli.yummystock.spider;
 
 import com.coderli.yummystock.core.constant.RestorationType;
 import com.coderli.yummystock.core.entity.HistoryStockData;
@@ -12,7 +12,7 @@ import java.util.List;
  * @author li.hzh
  * @date 2016-11-29 00:09
  */
-public interface SingleStockHistoryDataCrawler extends HistoryDataCrawler {
+public interface SingleStockHistoryDataSpider extends HistoryDataSpider {
     
     /**
      * 爬取给定股票代码的股票的历史数据
