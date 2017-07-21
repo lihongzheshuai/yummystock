@@ -8,12 +8,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoClientFactoryBean;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 /**
  * @author li.hzh
  * @date 2017-07-19 23:04
  */
 @Configuration
+@EnableMongoRepositories
 public class MongoDBConfig {
     
     @Bean
@@ -23,22 +25,17 @@ public class MongoDBConfig {
     }
     
     @Bean
-    public MongoClientFactoryBean mongoClientFactory() {
-        MongoClientFactoryBean mongoClientFactory = new MongoClientFactoryBean();
-        MongoDBConfigBean config = mongoDBConfigBean();
-        mongoClientFactory.setHost(config.getHost());
-        mongoClientFactory.setPort(config.getPort());
-        return mongoClientFactory;
-    }
-    
-    @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
-        return new SimpleMongoDbFactory((MongoClient) mongoClientFactory().getObject(), mongoDBConfigBean().getDb());
+        MongoDBConfigBean mongoConfig = mongoDBConfigBean();
+        MongoClient mongoClient = new MongoClient(mongoConfig.getHost(), mongoConfig.getPort());
+        return new SimpleMongoDbFactory(mongoClient, mongoConfig.getDb());
     }
     
     @Bean
-    public MongoConnector mongoTemplate() throws Exception {
-        return new MongoConnector(mongoDbFactory());
+    public MongoConnector yummyStockConnector() throws Exception {
+        MongoDbFactory mongoDbFactory = mongoDbFactory();
+//        mongoDbFactory.getDb();
+        return new MongoConnector(mongoDbFactory);
     }
     
 }

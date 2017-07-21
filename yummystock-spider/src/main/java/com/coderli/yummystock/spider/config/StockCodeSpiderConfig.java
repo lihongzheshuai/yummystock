@@ -1,6 +1,7 @@
 package com.coderli.yummystock.spider.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class StockCodeSpiderConfig {
     
     @ConfigurationProperties(prefix = "spider.stockcodelist")
+    @Bean
     public StockCodeSpiderConfigBean stockCodeSpiderConfigBean() {
         return new StockCodeSpiderConfigBean();
     }

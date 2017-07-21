@@ -2,12 +2,15 @@ package com.coderli.yummystock.spider;
 
 import com.coderli.yummystock.core.util.BeanUtil;
 import com.coderli.yummystock.spider.config.SpiderSystemConfigBean;
+import com.coderli.yummystock.spider.initializer.DefaultStockCodeInitializer;
+import com.coderli.yummystock.spider.initializer.StockCodeInitializer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
+
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author li.hzh
@@ -19,13 +22,30 @@ import org.springframework.context.annotation.PropertySource;
 @Slf4j
 public class Bootstrap {
     
-    public static void main(String[] args) {
+    private static CountDownLatch latch = new CountDownLatch(1);
+    
+    public static void main(String[] args) throws InterruptedException {
         log.info("Starting Yummy Stock Spider.....");
         initContext(args);
         //判断是否需要初始化历史数据
         if (needsInitData()) {
-        
+            log.info("Needs initialize history data.");
+            initData();
         }
+        log.info("Yummy Stock Spider started!!!!");
+        waitfor();
+    }
+    
+    private static void waitfor() throws InterruptedException {
+        latch.await();
+    }
+    
+    /**
+     * 初始化股票列表和股票历史数据
+     */
+    private static void initData() {
+        StockCodeInitializer stockCodeInitializer = new DefaultStockCodeInitializer();
+        stockCodeInitializer.init();
     }
     
     private static boolean needsInitData() {
@@ -34,7 +54,7 @@ public class Bootstrap {
     }
     
     private static void initContext(String[] args) {
-        ApplicationContext applicationContext = SpringApplication.run(Bootstrap.class, args);
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(Bootstrap.class);
         BeanUtil.setContext(applicationContext);
     }
     

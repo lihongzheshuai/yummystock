@@ -38,6 +38,7 @@
         <guava.version>20.0</guava.version>
         <mongodb.version>3.4.2</mongodb.version>
         <spring-data-mongodb.version>1.10.4.RELEASE</spring-data-mongodb.version>
+        <spring-data-commons.version>1.13.4.RELEASE</spring-data-commons.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -70,6 +71,11 @@
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-mongodb</artifactId>
                 <version>${spring-data-mongodb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-commons</artifactId>
+                <version>${spring-data-commons.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

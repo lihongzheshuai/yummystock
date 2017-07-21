@@ -33,19 +33,23 @@ public class JuheStockSpider extends AbstractStockSpider {
     
     @Override
     public List<Stock> getAllSZStocks() {
+        return getStocksByPages(SZ_URL_PATH, PAGE_COUNT_TYPE);
+    }
+    
+    private List<Stock> getStocksByPages(String type, int pageCountType) {
         int page = 1;
         List<Stock> result = new ArrayList<>();
-        JuheHttpResponse response = getByPages(SZ_URL_PATH, page, PAGE_COUNT_TYPE);
+        JuheHttpResponse response = getOnePageData(type, page, pageCountType);
         if (!isSuccess(response)) {
-            log.warn("Get all sz stock error. Page: {}, With reason: {}.", page, response.getReason());
+            log.warn("Get {} stock error. Page: {}, With reason: {}.", type, page, response.getReason());
         }
         JuheHttpPageResult pageResult = response.getPageResult();
         result.addAll(pageResult.getData());
         int totalPages = PageUtil.calcTotalPageCount(pageResult.getTotalCount(), pageResult.getNum());
         for (page = 2; page <= totalPages; page++) {
-            response = getByPages(SZ_URL_PATH, page, PAGE_COUNT_TYPE);
+            response = getOnePageData(type, page, pageCountType);
             if (!isSuccess(response)) {
-                log.warn("Get all sz stock error. Page: {}, With reason: {}.", page, response.getReason());
+                log.warn("Get {} stock error. Page: {}, With reason: {}.", type, page, response.getReason());
             }
             pageResult = response.getPageResult();
             result.addAll(pageResult.getData());
@@ -53,7 +57,7 @@ public class JuheStockSpider extends AbstractStockSpider {
         return result;
     }
     
-    private JuheHttpResponse getByPages(String type, int pageNum, int pageCountType) {
+    private JuheHttpResponse getOnePageData(String type, int pageNum, int pageCountType) {
         String szGetUrl = generateUrl(type, pageNum, pageCountType);
         return httpClient.getObject(szGetUrl, JuheHttpResponse.class);
     }
@@ -64,14 +68,7 @@ public class JuheStockSpider extends AbstractStockSpider {
     
     @Override
     public List<Stock> getAllSHStocks() {
-        int page = 1;
-        int pageCount = 80;
-        List<Stock> result = new ArrayList<>();
-        JuheHttpResponse response = getByPages(SH_URL_PATH, page, pageCount);
-        if (!isSuccess(response)) {
-            log.warn("Get all sz stock error. Page: {}, With reason: {}.", page, response.getReason());
-        }
-        return null;
+        return getStocksByPages(SH_URL_PATH, PAGE_COUNT_TYPE);
     }
     
     private String generateUrl(String urlPath, int page, int count) {
