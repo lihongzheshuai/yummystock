@@ -11,5 +11,7 @@
 
     <artifactId>yummystock-web</artifactId>
 
+    <dependencies>
 
+    </dependencies>
 </project>
