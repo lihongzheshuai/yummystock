@@ -10,7 +10,7 @@ import java.util.List;
  * @author li.hzh
  * @date 2017-07-17 15:30
  */
-public interface StockSpider {
+public interface StockSpider extends DataSpider {
     
     List<Stock> getAllStock();
     

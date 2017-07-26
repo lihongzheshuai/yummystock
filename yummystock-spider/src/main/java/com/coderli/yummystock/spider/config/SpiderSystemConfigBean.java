@@ -9,7 +9,8 @@ import lombok.Data;
 @Data
 public class SpiderSystemConfigBean {
 
-    private boolean initData;
-
+    private boolean initStockCodeData;
+    private boolean initStockHistoryData;
+    private boolean cleanBeforeinit;
 
 }

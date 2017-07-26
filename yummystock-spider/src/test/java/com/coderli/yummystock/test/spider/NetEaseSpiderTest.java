@@ -2,7 +2,7 @@ package com.coderli.yummystock.test.spider;
 
 import com.coderli.yummystock.core.constant.RestorationType;
 import com.coderli.yummystock.core.entity.HistoryStockData;
-import com.coderli.yummystock.spider.spider.NetEaseSpider;
+import com.coderli.yummystock.spider.spider.NetEaseHistoryDataSpider;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ import java.util.List;
 public class NetEaseSpiderTest {
     
     @Autowired
-    private NetEaseSpider netEaseCrawler;
+    private NetEaseHistoryDataSpider netEaseCrawler;
     
     private Date from;
     private Date to;
@@ -31,7 +31,7 @@ public class NetEaseSpiderTest {
     
     @Before
     public void init() {
-        from = DateTime.parse("2016-07-08").toDate();
+        from = DateTime.parse("2000-01-01").toDate();
         to = DateTime.parse("2016-07-12").toDate();
     }
     
