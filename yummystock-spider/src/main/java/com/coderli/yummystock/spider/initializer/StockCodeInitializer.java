@@ -6,11 +6,7 @@ package com.coderli.yummystock.spider.initializer;
  * @author li.hzh
  * @date 2017-07-20 22:58
  */
-public interface StockCodeInitializer {
+public interface StockCodeInitializer extends Initializer {
     
-    /**
-     * 同步初始化
-     */
-    void init();
-    
+
 }

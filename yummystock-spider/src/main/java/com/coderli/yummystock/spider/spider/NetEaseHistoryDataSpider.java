@@ -7,10 +7,12 @@ import com.coderli.yummystock.core.http.impl.SimpleRestHttpClient;
 import com.coderli.yummystock.core.util.DateUtil;
 import com.coderli.yummystock.core.util.FileUtil;
 import com.coderli.yummystock.core.util.StockCodeUtil;
-import com.coderli.yummystock.spider.handler.SpiderDataHandler;
+import com.coderli.yummystock.spider.parser.DataParser;
+import com.coderli.yummystock.spider.parser.NetEaseHistoryDataParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -23,7 +25,7 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class NetEaseSpider extends AbstractSingleStockHistoryDataSpider {
+public class NetEaseHistoryDataSpider extends AbstractSingleStockHistoryDataSpider {
     
     private static final String FIELDS_PARAM_STRING = "fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP";
     private static final String CODE_PARAM_KEY = "code";
@@ -35,31 +37,32 @@ public class NetEaseSpider extends AbstractSingleStockHistoryDataSpider {
     private static final String DATE_FORMAT = "yyyyMMdd";
     
     private HttpClient httpClient = new SimpleRestHttpClient();
-    
-    @Override
-    public SpiderDataHandler getHandler() {
-        return null;
-    }
+    private DataParser<File, List<HistoryStockData>> dataParser = new NetEaseHistoryDataParser();
     
     @Override
     public List<HistoryStockData> crawlHistoryData(String stockCode, Date from, Date to, RestorationType restorationType) {
         log.debug("Get stock {} history data. From {} to {}.", stockCode, from, to);
         String url = generateUrl(stockCode, from, to, restorationType);
-        httpClient.writeToStream(url, createOutputStream(stockCode, from, to));
-        return null;
+        String filePath = getFilePath(stockCode, from, to);
+        httpClient.writeToStream(url, createOutputStream(filePath));
+        List<HistoryStockData> historyStockData = dataParser.parse(new File(filePath));
+        return historyStockData;
     }
     
-    private OutputStream createOutputStream(String stockCode, Date from, Date to) {
+    private String getFilePath(String stockCode, Date from, Date to) {
         String tempDir = getTempPath();
         String fileName = generateFileName(stockCode, from, to);
-        String fullPath = FileUtil.directoryPathFormat(tempDir) + fileName;
+        return FileUtil.directoryPathFormat(tempDir) + fileName;
+    }
+    
+    private OutputStream createOutputStream(String filePath) {
         try {
-            FileUtil.createNewFile(fullPath);
-            log.info("Create new file {}.", fullPath);
-            return new FileOutputStream(fullPath);
+            FileUtil.createNewFile(filePath);
+            log.info("Create new file {}.", filePath);
+            return new FileOutputStream(filePath);
         } catch (IOException e) {
-            log.error("Create file " + fullPath + " failed.", e);
-            throw new SpiderRuntimeException("Create file " + fullPath + " failed.");
+            log.error("Create file " + filePath + " failed.", e);
+            throw new SpiderRuntimeException("Create file " + filePath + " failed.");
         }
     }
     

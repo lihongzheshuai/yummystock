@@ -20,7 +20,7 @@ public interface SingleStockHistoryDataSpider extends HistoryDataSpider {
      * @param stockCode       stock code
      * @param from            history date range begin
      * @param to              history date range end
-     * @param restorationType {@link RestorationType}
+     * @param restorationType {@link RestorationType} 复权类型， 默认为qfq
      * @return
      */
     List<HistoryStockData> crawlHistoryData(String stockCode, Date from, Date to, RestorationType restorationType);

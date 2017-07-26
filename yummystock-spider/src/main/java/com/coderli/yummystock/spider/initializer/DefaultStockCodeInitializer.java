@@ -16,15 +16,23 @@ import java.util.List;
 public class DefaultStockCodeInitializer implements StockCodeInitializer {
     
     @Override
-    public void init() {
+    public void init(boolean clean) {
         StockSpider stockSpider = BeanUtil.getBean(StockSpider.class);
         if (stockSpider == null) {
             log.error("No stock spider configured. Can not init stock code.");
             return;
         }
+        if (clean) {
+            clean();
+        }
         List<Stock> stockList = stockSpider.getAllStock();
         StockService stockService = BeanUtil.getBean(StockService.class);
         stockService.saveStocks(stockList);
+    }
+    
+    private void clean() {
+        StockService stockService = BeanUtil.getBean(StockService.class);
+        stockService.removeAll();
     }
 }
 

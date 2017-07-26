@@ -14,12 +14,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "stocks")
 public class Stock {
     
+    @Id
+    private String code;
     /**
      * 完整的股票代码，带sz、sh
      */
-    @Id
     private String symbol;
     private String name;
-    private String code;
     
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Code: ").append(symbol).append(",")
+                .append("Name: ").append(name);
+        return builder.toString();
+    }
 }

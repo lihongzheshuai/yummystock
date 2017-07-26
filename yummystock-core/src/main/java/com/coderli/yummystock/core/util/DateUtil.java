@@ -6,6 +6,7 @@ import org.joda.time.Interval;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.Date;
 
@@ -38,5 +39,15 @@ public class DateUtil {
         Interval interval = new Interval(from.getTime(), to.getTime());
         Period period = interval.toPeriod(PeriodType.days());
         return period.getDays() + 1;
+    }
+    
+    public static Date parseDate(String dateString) {
+        return parseDate(dateString, DEFAULT_PATTERN);
+    }
+    
+    public static Date parseDate(String dateString, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern(pattern);
+        DateTime dateTime = formatter.parseDateTime(dateString);
+        return dateTime.toDate();
     }
 }

@@ -3,7 +3,9 @@ package com.coderli.yummystock.spider;
 import com.coderli.yummystock.core.util.BeanUtil;
 import com.coderli.yummystock.spider.config.SpiderSystemConfigBean;
 import com.coderli.yummystock.spider.initializer.DefaultStockCodeInitializer;
+import com.coderli.yummystock.spider.initializer.DefaultStockHistoryDataInitializer;
 import com.coderli.yummystock.spider.initializer.StockCodeInitializer;
+import com.coderli.yummystock.spider.initializer.StockHistoryDataInitializer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -27,11 +29,8 @@ public class Bootstrap {
     public static void main(String[] args) throws InterruptedException {
         log.info("Starting Yummy Stock Spider.....");
         initContext(args);
-        //判断是否需要初始化历史数据
-        if (needsInitData()) {
-            log.info("Needs initialize history data.");
-            initData();
-        }
+        // 初始化必要的数据
+        initData();
         log.info("Yummy Stock Spider started!!!!");
         waitfor();
     }
@@ -44,13 +43,17 @@ public class Bootstrap {
      * 初始化股票列表和股票历史数据
      */
     private static void initData() {
-        StockCodeInitializer stockCodeInitializer = new DefaultStockCodeInitializer();
-        stockCodeInitializer.init();
-    }
-    
-    private static boolean needsInitData() {
         SpiderSystemConfigBean systemConfig = BeanUtil.getBean(SpiderSystemConfigBean.class);
-        return systemConfig.isInitData();
+        if (systemConfig.isInitStockCodeData()) {
+            log.info("Init stock code data.");
+            StockCodeInitializer stockCodeInitializer = new DefaultStockCodeInitializer();
+            stockCodeInitializer.init(systemConfig.isCleanBeforeinit());
+        }
+        if (systemConfig.isInitStockHistoryData()) {
+            log.info("Init stock history data");
+            StockHistoryDataInitializer historyDataInitializer = new DefaultStockHistoryDataInitializer();
+            historyDataInitializer.init(systemConfig.isCleanBeforeinit());
+        }
     }
     
     private static void initContext(String[] args) {

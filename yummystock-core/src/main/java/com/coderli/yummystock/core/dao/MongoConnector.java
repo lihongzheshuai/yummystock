@@ -37,4 +37,8 @@ public class MongoConnector extends MongoTemplate {
         bulkOperations.execute();
     }
     
+    public <T> void removeAll(Class<T> type) {
+        getCollection(getCollectionName(type)).drop();
+    }
+    
 }
