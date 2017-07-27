@@ -10,9 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author li.hzh
@@ -20,19 +18,18 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class NetEaseDailyDataSpider extends NetEaseHistoryDataSpider implements SingleStockHistoryDataSpider {
+public class NetEaseDailyDataSpider extends AbstractNetEaseDataSpider implements SingleStockDailyDataSpider {
     
     private HttpClient httpClient = new SimpleRestHttpClient();
     private DataParser<ByteArrayOutputStream, HistoryStockData> dataParser = new NetEaseDailyDataParser();
     
     @Override
-    public List<HistoryStockData> crawlHistoryData(String stockCode, Date from, Date to, RestorationType restorationType) {
+    public HistoryStockData crawlHistoryData(String stockCode, Date from, Date to, RestorationType restorationType) {
         log.debug("Get stock {} history data. From {} to {}.", stockCode, from, to);
         String url = generateUrl(stockCode, from, to, restorationType);
         String filePath = getFilePath(stockCode, from, to);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         httpClient.writeToStream(url, outputStream);
-        HistoryStockData historyStockData = dataParser.parse(outputStream);
-        return Collections.singletonList(historyStockData);
+        return dataParser.parse(outputStream);
     }
 }

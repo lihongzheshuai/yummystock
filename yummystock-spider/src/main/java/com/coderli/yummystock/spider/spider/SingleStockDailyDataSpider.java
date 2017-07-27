@@ -4,7 +4,9 @@ import com.coderli.yummystock.core.entity.HistoryStockData;
 
 /**
  * @author li.hzh
- * @date 2017-07-27 17:04
+ * @date 2017-07-27 21:04
  */
-public interface DailyDataSpider extends HistoryDataSpider<HistoryStockData> {
+public interface SingleStockDailyDataSpider extends DailyDataSpider {
+
+
 }
