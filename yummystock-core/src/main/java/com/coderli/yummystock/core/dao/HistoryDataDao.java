@@ -1,7 +1,6 @@
 package com.coderli.yummystock.core.dao;
 
 import com.coderli.yummystock.core.entity.HistoryStockData;
-import com.coderli.yummystock.core.entity.Stock;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

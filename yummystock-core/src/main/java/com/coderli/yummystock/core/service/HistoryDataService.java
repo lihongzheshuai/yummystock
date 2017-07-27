@@ -9,12 +9,12 @@ import java.util.List;
  * @date 2017-07-26 14:59
  */
 public interface HistoryDataService {
-
-    void saveSingleStockHistoryData(List<HistoryStockData> historyStockDataList);
+    
+    void saveSingleStockHistoryData(String stockCode, List<HistoryStockData> historyStockDataList);
     
     /**
      * 清除所有数据
      */
-    void removeAll();
-
+    void removeAll(String code);
+    
 }

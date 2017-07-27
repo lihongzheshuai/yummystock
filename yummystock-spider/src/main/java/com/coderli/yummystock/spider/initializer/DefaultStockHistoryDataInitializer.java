@@ -34,26 +34,28 @@ public class DefaultStockHistoryDataInitializer implements StockHistoryDataIniti
     
     @Override
     public void init(boolean clean) {
-        if (clean) {
-            clean();
-        }
-        List<Stock> allStocks = stockService.getAllStocks();
-        for (Stock stock : allStocks) {
-            log.debug("Get history data of stock {}.", stock);
-            crawlAndSaveHistoryData(stock);
-        }
+        new Thread(() -> {
+            List<Stock> allStocks = stockService.getAllStocks();
+            for (Stock stock : allStocks) {
+                log.debug("Get history data of stock {}.", stock);
+                crawlAndSaveHistoryData(stock, clean);
+            }
+        }).start();
     }
     
-    private void clean() {
-        historyDataService.removeAll();
+    private void clean(Stock stock) {
+        historyDataService.removeAll(stock.getCode());
     }
     
-    private void crawlAndSaveHistoryData(Stock stock) {
+    private void crawlAndSaveHistoryData(Stock stock, boolean clean) {
         Date start = DateUtil.parseDate(START_DATE);
         Date end = TODAY;
         List<HistoryStockData> historyDatas = historyDataSpider.crawlHistoryData(stock.getCode(), start, end, null);
         log.debug("Get {} days history data of stock {}.", historyDatas.size(), stock.toString());
-        historyDataService.saveSingleStockHistoryData(historyDatas);
+        if (clean) {
+            clean(stock);
+        }
+        historyDataService.saveSingleStockHistoryData(stock.getCode(), historyDatas);
     }
     
 }

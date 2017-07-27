@@ -16,13 +16,12 @@ import java.util.Date;
 @Document(collection = "historydatas")
 public class HistoryStockData {
     
-    @Id
     private String stockCode;
+    private Date date;
     private double openPrice;
     private double closePrice;
     private double highPrice;
     private double lowPrice;
-    private Date date;
     private double volumeOfTrading;
     private double volumeOfTradingInMoney;
     private double changePercentage;

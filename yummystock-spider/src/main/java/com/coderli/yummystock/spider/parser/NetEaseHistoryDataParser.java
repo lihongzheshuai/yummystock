@@ -19,7 +19,6 @@ import java.util.List;
 public class NetEaseHistoryDataParser implements DataParser<File, List<HistoryStockData>> {
     
     private static final int COLUMN_COUNT = 15;
-    private static final String DATE_PATTERN = "yyyy/MM/dd";
     private static final int DATE_COLUMN_INDEX = 0;
     private static final int CODE_COLUMN_INDEX = 1;
     private static final int NAME_COLUMN_INDEX = 2;
@@ -35,6 +34,8 @@ public class NetEaseHistoryDataParser implements DataParser<File, List<HistorySt
     private static final int VOLUMN_OF_TRADING_IN_MONEY_COLUMN_INDEX = 12;
     private static final int TOTAL_MARKET_VALUE_COLUMN_INDEX = 13;
     private static final int CIRCULATION_MARKET_VALUE_COLUMN_INDEX = 14;
+    
+    private static final String NONE = "None";
     
     
     @Override
@@ -86,9 +87,15 @@ public class NetEaseHistoryDataParser implements DataParser<File, List<HistorySt
         historyData.setLowPrice(Double.parseDouble(values[LOWEST_PRICE_COLUMN_INDEX]));
         historyData.setOpenPrice(Double.parseDouble(values[OPEN_PRICE_COLUMN_INDEX]));
         historyData.setLastClosePrice(Double.parseDouble(values[LAST_CLOSE_PRICE_COLUMN_INDEX]));
-        historyData.setChangePrice(Double.parseDouble(values[CHANGE_PRICE_COLUMN_INDEX]));
-        historyData.setChangePercentage(Double.parseDouble(values[CHANGE_PERCENTAGE_COLUMN_INDEX]));
-        historyData.setTurnoverRate(Double.parseDouble(values[TURNOVER_RATE_COLUMN_INDEX]));
+        if (!values[CHANGE_PRICE_COLUMN_INDEX].equals(NONE)) {
+            historyData.setChangePrice(Double.parseDouble(values[CHANGE_PRICE_COLUMN_INDEX]));
+        }
+        if (!values[CHANGE_PERCENTAGE_COLUMN_INDEX].equals(NONE)) {
+            historyData.setChangePercentage(Double.parseDouble(values[CHANGE_PERCENTAGE_COLUMN_INDEX]));
+        }
+        if (!values[TURNOVER_RATE_COLUMN_INDEX].equals(NONE)) {
+            historyData.setTurnoverRate(Double.parseDouble(values[TURNOVER_RATE_COLUMN_INDEX]));
+        }
         historyData.setVolumeOfTrading(Double.parseDouble(values[VOLUMN_OF_TRADING_COLUMN_INDEX]));
         historyData.setVolumeOfTradingInMoney(Double.parseDouble(values[VOLUMN_OF_TRADING_IN_MONEY_COLUMN_INDEX]));
         historyData.setTotalMarketValue(Double.parseDouble(values[TOTAL_MARKET_VALUE_COLUMN_INDEX]));
@@ -98,7 +105,7 @@ public class NetEaseHistoryDataParser implements DataParser<File, List<HistorySt
     private void validateValues(String[] values) {
         if (values.length != COLUMN_COUNT) {
             log.error("Illegal history data file with column count {}, needs {}", values.length, COLUMN_COUNT);
-            throw new IllegalArgumentException("Illeg al history data file");
+            throw new IllegalArgumentException("Illegal history data file");
         }
     }
 }
