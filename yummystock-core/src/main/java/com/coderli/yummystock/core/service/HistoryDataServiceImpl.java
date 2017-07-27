@@ -20,12 +20,12 @@ public class HistoryDataServiceImpl implements HistoryDataService {
     private HistoryDataDao historyDataDao;
     
     @Override
-    public void saveSingleStockHistoryData(String stockCode, List<HistoryStockData> historyStockDataList) {
+    public void saveStockHistoryData(List<HistoryStockData> historyStockDataList) {
         historyDataDao.saveHistoryDatas(historyStockDataList);
     }
     
     @Override
-    public void removeAll(String code) {
+    public void removeAll() {
         historyDataDao.removeAll();
     }
     

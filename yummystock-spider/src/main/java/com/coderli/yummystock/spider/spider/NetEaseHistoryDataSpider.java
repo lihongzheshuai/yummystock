@@ -44,18 +44,24 @@ public class NetEaseHistoryDataSpider extends AbstractSingleStockHistoryDataSpid
         log.debug("Get stock {} history data. From {} to {}.", stockCode, from, to);
         String url = generateUrl(stockCode, from, to, restorationType);
         String filePath = getFilePath(stockCode, from, to);
-        httpClient.writeToStream(url, createOutputStream(filePath));
-        List<HistoryStockData> historyStockData = dataParser.parse(new File(filePath));
+        File historyFile = new File(filePath);
+        List<HistoryStockData> historyStockData = null;
+        if (!historyFile.exists()) {
+            httpClient.writeToStream(url, createOutputStream(filePath));
+        } else {
+            log.debug("History data file {} exists, just parse it.", filePath);
+        }
+        historyStockData = dataParser.parse(new File(filePath));
         return historyStockData;
     }
     
-    private String getFilePath(String stockCode, Date from, Date to) {
+    protected String getFilePath(String stockCode, Date from, Date to) {
         String tempDir = getTempPath();
         String fileName = generateFileName(stockCode, from, to);
         return FileUtil.directoryPathFormat(tempDir) + fileName;
     }
     
-    private OutputStream createOutputStream(String filePath) {
+    protected OutputStream createOutputStream(String filePath) {
         try {
             FileUtil.createNewFile(filePath);
             log.info("Create new file {}.", filePath);
@@ -66,17 +72,17 @@ public class NetEaseHistoryDataSpider extends AbstractSingleStockHistoryDataSpid
         }
     }
     
-    private String generateFileName(String stockCode, Date from, Date to) {
+    protected String generateFileName(String stockCode, Date from, Date to) {
         return stockCode + "-" + DateUtil.formatDate(from, DATE_FORMAT) + "-" + DateUtil.formatDate(to, DATE_FORMAT) + FILE_EXT_NAME;
     }
     
-    private String generateUrl(String stockCode, Date from, Date to, RestorationType restorationType) {
+    protected String generateUrl(String stockCode, Date from, Date to, RestorationType restorationType) {
         String baseUrl = getBaseUrl();
         String paramStr = generateParams(stockCode, from, to);
         return baseUrl + "?" + paramStr;
     }
     
-    private String generateParams(String stockCode, Date from, Date to) {
+    protected String generateParams(String stockCode, Date from, Date to) {
         String fullCode = StockCodeUtil.isSH(stockCode) ? SH_CODE_PREFIX + stockCode
                                   : SZ_CODE_PREFIX + stockCode;
         StringBuilder builder = new StringBuilder();

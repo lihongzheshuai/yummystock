@@ -10,11 +10,11 @@ import java.util.List;
  */
 public interface HistoryDataService {
     
-    void saveSingleStockHistoryData(String stockCode, List<HistoryStockData> historyStockDataList);
+    void saveStockHistoryData(List<HistoryStockData> historyStockDataList);
     
     /**
      * 清除所有数据
      */
-    void removeAll(String code);
+    void removeAll();
     
 }
