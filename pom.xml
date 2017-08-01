@@ -39,6 +39,7 @@
         <mongodb.version>3.4.2</mongodb.version>
         <spring-data-mongodb.version>1.10.4.RELEASE</spring-data-mongodb.version>
         <spring-data-commons.version>1.13.4.RELEASE</spring-data-commons.version>
+        <disable.checks>true</disable.checks>
     </properties>
     <dependencyManagement>
         <dependencies>
