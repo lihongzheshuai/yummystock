@@ -1,10 +1,12 @@
 package com.coderli.yummystock.spider.spider;
 
-import com.coderli.yummystock.core.constant.RestorationType;
+import com.coderli.yummystock.core.entity.HistoryDataMetadata;
+import com.coderli.yummystock.core.service.HistoryDataMetadataService;
 import com.coderli.yummystock.core.util.DateUtil;
 import com.coderli.yummystock.core.util.FileUtil;
 import com.coderli.yummystock.core.util.StockCodeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,6 +29,14 @@ public abstract class AbstractNetEaseDataSpider extends AbstractSingleStockHisto
     private static final String FILE_EXT_NAME = ".csv";
     private static final String DATE_FORMAT = "yyyyMMdd";
     
+    @Autowired
+    protected HistoryDataMetadataService metadataService;
+    
+    protected void updateMetadata(String stockCode, Date from, Date to) {
+        log.debug("Save metadata, start {}, end {}, code {}.", from, to, stockCode);
+        HistoryDataMetadata updateMetadata = new HistoryDataMetadata(stockCode, from, to);
+        metadataService.updateMetadata(updateMetadata);
+    }
     
     protected String getFilePath(String stockCode, Date from, Date to) {
         String tempDir = getTempPath();
@@ -45,11 +55,12 @@ public abstract class AbstractNetEaseDataSpider extends AbstractSingleStockHisto
         }
     }
     
+    
     protected String generateFileName(String stockCode, Date from, Date to) {
         return stockCode + "-" + DateUtil.formatDate(from, DATE_FORMAT) + "-" + DateUtil.formatDate(to, DATE_FORMAT) + FILE_EXT_NAME;
     }
     
-    protected String generateUrl(String stockCode, Date from, Date to, RestorationType restorationType) {
+    protected String generateUrl(String stockCode, Date from, Date to) {
         String baseUrl = getBaseUrl();
         String paramStr = generateParams(stockCode, from, to);
         return baseUrl + "?" + paramStr;

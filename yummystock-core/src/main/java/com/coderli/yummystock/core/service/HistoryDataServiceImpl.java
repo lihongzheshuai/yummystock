@@ -20,7 +20,7 @@ public class HistoryDataServiceImpl implements HistoryDataService {
     private HistoryDataDao historyDataDao;
     
     @Override
-    public void saveStockHistoryData(List<HistoryStockData> historyStockDataList) {
+    public void saveHistoryDatas(List<HistoryStockData> historyStockDataList) {
         historyDataDao.saveHistoryDatas(historyStockDataList);
     }
     
@@ -29,4 +29,8 @@ public class HistoryDataServiceImpl implements HistoryDataService {
         historyDataDao.removeAll();
     }
     
+    @Override
+    public void saveSingleData(HistoryStockData historyStockData) {
+        historyDataDao.saveSingleData(historyStockData);
+    }
 }

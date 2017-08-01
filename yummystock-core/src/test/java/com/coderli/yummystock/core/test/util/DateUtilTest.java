@@ -34,4 +34,9 @@ public class DateUtilTest {
         DateTime dateTime = DateTime.parse(dateStr);
         return dateTime.toDate();
     }
+    
+    @Test
+    public void testToday() {
+        System.out.println(DateUtil.todayDate());
+    }
 }

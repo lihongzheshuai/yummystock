@@ -50,4 +50,17 @@ public class DateUtil {
         DateTime dateTime = formatter.parseDateTime(dateString);
         return dateTime.toDate();
     }
+    
+    public static Date todayDate() {
+        DateTime dateTime = new DateTime();
+        dateTime = dateTime.withMillisOfDay(0);
+        return dateTime.toDate();
+    }
+    
+    public static Date yesterdayDate() {
+        DateTime dateTime = new DateTime();
+        dateTime = dateTime.withMillisOfDay(0);
+        dateTime = dateTime.minusDays(1);
+        return dateTime.toDate();
+    }
 }

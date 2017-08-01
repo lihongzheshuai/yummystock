@@ -1,6 +1,8 @@
 package com.coderli.yummystock.core.dao;
 
 import com.coderli.yummystock.core.entity.HistoryStockData;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,4 +21,9 @@ public class HistoryDataDao extends BaseDao<HistoryStockData> {
     public void removeAll() {
         mongoConnector.removeAll(HistoryStockData.class);
     }
+    
+    public void saveSingleData(HistoryStockData historyStockData) {
+        mongoConnector.insert(historyStockData);
+    }
+    
 }

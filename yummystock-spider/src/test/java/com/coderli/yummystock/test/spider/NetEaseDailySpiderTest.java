@@ -39,7 +39,7 @@ public class NetEaseDailySpiderTest {
     @Test
     public void testCrawlDailyData() {
         String stockCode = "600887";
-        List<HistoryStockData> stockDataList = netEaseCrawler.crawlHistoryData(stockCode, from, to, RestorationType.qfq);
+//        HistoryStockData stockDataList = netEaseCrawler.crawlHistoryData(stockCode, from, to, RestorationType.qfq);
 //        System.out.println(stockDataList.size());
 //        for (HistoryStockData historyStockData : stockDataList) {
 //            System.out.println(historyStockData.getDate());

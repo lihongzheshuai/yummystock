@@ -23,7 +23,7 @@ public class NetEaseParserTest {
     
     @Test
     public void testDataParser() {
-        String filePath = "/Users/apple/Downloads/stock/600000-20000101-20170726.csv";
+        String filePath = "/Users/apple/Downloads/stock/600887-20000101-20170727.csv";
         File file = new File(filePath);
         List<HistoryStockData> output = dataParser.parse(file);
         System.out.println("History data size " + output.size());
