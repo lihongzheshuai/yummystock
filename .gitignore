@@ -2,6 +2,7 @@
 ### Java template
 *.class
 target
+logs
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
