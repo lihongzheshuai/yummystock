@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public abstract class BaseDao<T> {
 
-    @Autowired
     protected MongoConnector mongoConnector;
 
     

@@ -20,4 +20,5 @@ public interface HistoryDataService {
     
     void saveSingleData(HistoryStockData historyStockData);
     
+    List<HistoryStockData> findByStockCode(String stockCode);
 }

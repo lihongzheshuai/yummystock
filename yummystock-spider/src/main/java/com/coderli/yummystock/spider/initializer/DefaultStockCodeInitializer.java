@@ -26,6 +26,7 @@ public class DefaultStockCodeInitializer implements StockCodeInitializer {
             clean();
         }
         List<Stock> stockList = stockSpider.getAllStock();
+        log.info("Get stocks count {}.", stockList.size());
         StockService stockService = BeanUtil.getBean(StockService.class);
         stockService.saveStocks(stockList);
     }

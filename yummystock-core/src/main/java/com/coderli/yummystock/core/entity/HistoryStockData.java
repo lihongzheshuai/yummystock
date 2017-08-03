@@ -2,6 +2,7 @@ package com.coderli.yummystock.core.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -16,9 +17,10 @@ import java.util.Date;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Document(collection = "historydatas")
-//@CompoundIndexes(@CompoundIndex(name = "history_data_cop_idx", def = "{stockCode:1, date: 1 }"))
+@CompoundIndexes(@CompoundIndex(name = "history_data_cop_idx", def = "{stockCode:1, date: 1 }"))
 public class HistoryStockData {
     
+    private ObjectId _id;
     @Indexed(background = true)
     private String stockCode;
     private Date date;

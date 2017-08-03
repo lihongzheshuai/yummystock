@@ -1,7 +1,7 @@
 package com.coderli.yummystock.core.service;
 
-import com.coderli.yummystock.core.dao.HistoryDataMetadataDao;
 import com.coderli.yummystock.core.entity.HistoryDataMetadata;
+import com.coderli.yummystock.core.repository.HistoryDataMetadataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,25 +13,25 @@ import org.springframework.stereotype.Service;
 public class HistoryDataMetadataServiceImpl implements HistoryDataMetadataService {
     
     @Autowired
-    private HistoryDataMetadataDao metadataDao;
+    private HistoryDataMetadataRepository metadataRepository;
     
     @Override
     public void saveMetadata(HistoryDataMetadata metadata) {
-        metadataDao.saveMetadata(metadata);
+        metadataRepository.save(metadata);
     }
     
     @Override
     public HistoryDataMetadata getMetadata(String stockCode) {
-        return metadataDao.getMetadata(stockCode);
+        return metadataRepository.findOne(stockCode);
     }
     
     @Override
     public void updateMetadata(HistoryDataMetadata metadata) {
-        metadataDao.updateMetadata(metadata);
+        metadataRepository.save(metadata);
     }
     
     @Override
     public void removeAll() {
-        metadataDao.removeAll();
+        metadataRepository.deleteAll();;
     }
 }

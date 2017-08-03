@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
  * @author li.hzh
  * @date 2017-07-29 00:06
  */
-@Repository
 public class HistoryDataMetadataDao extends BaseDao<HistoryDataMetadata> {
     
     public void saveMetadata(HistoryDataMetadata metadata) {

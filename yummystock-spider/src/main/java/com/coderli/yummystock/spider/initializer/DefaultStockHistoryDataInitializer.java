@@ -44,8 +44,12 @@ public class DefaultStockHistoryDataInitializer implements StockHistoryDataIniti
             List<Stock> allStocks = stockService.getAllStocks();
             Date start = DateUtil.parseDate(START_DATE);
             Date end = YESTERDAY;
+            if (allStocks == null || allStocks.isEmpty()) {
+                log.info("No stock data find. Can not init history data.");
+                return;
+            }
             for (Stock stock : allStocks) {
-                log.debug("Get history data of stock {}.", stock);
+                log.info("Get history data of stock {}.", stock);
                 try {
                     crawlAndSaveHistoryData(stock, start, end, clean);
                 } catch (Throwable t) {
@@ -53,6 +57,7 @@ public class DefaultStockHistoryDataInitializer implements StockHistoryDataIniti
                     continue;
                 }
             }
+            log.info("Init stock history data finished. Total stock count: {}.", allStocks.size());
         }).start();
     }
     

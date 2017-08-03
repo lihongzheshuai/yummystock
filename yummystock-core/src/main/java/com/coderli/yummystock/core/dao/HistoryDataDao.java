@@ -11,7 +11,6 @@ import java.util.List;
  * @author li.hzh
  * @date 2017-07-26 15:03
  */
-@Repository
 public class HistoryDataDao extends BaseDao<HistoryStockData> {
     
     public void saveHistoryDatas(List<HistoryStockData> historyDatas) {
