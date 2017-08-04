@@ -24,9 +24,7 @@ public class HistoryDataMetadata {
     
     @Id
     private String code;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date begin;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
     private Date end;
     
     
