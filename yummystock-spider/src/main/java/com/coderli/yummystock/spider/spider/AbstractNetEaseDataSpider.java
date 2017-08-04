@@ -29,14 +29,6 @@ public abstract class AbstractNetEaseDataSpider extends AbstractSingleStockHisto
     private static final String FILE_EXT_NAME = ".csv";
     private static final String DATE_FORMAT = "yyyyMMdd";
     
-    @Autowired
-    protected HistoryDataMetadataService metadataService;
-    
-    protected void updateMetadata(String stockCode, Date from, Date to) {
-        log.debug("Save metadata, start {}, end {}, code {}.", from, to, stockCode);
-        HistoryDataMetadata updateMetadata = new HistoryDataMetadata(stockCode, from, to);
-        metadataService.updateMetadata(updateMetadata);
-    }
     
     protected String getFilePath(String stockCode, Date from, Date to) {
         String tempDir = getTempPath();

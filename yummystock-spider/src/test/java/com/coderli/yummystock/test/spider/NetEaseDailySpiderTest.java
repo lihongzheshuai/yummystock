@@ -1,10 +1,8 @@
 package com.coderli.yummystock.test.spider;
 
-import com.coderli.yummystock.core.constant.RestorationType;
 import com.coderli.yummystock.core.entity.HistoryStockData;
+import com.coderli.yummystock.core.util.DateUtil;
 import com.coderli.yummystock.spider.spider.NetEaseDailyDataSpider;
-import com.coderli.yummystock.spider.spider.NetEaseHistoryDataSpider;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,18 +30,18 @@ public class NetEaseDailySpiderTest {
     
     @Before
     public void init() {
-        from = DateTime.parse("2017-07-27").toDate();
-        to = DateTime.parse("2017-07-27").toDate();
+        from = DateUtil.yesterdayDate();
+        to = DateUtil.todayDate();
     }
     
     @Test
     public void testCrawlDailyData() {
-        String stockCode = "600887";
-//        HistoryStockData stockDataList = netEaseCrawler.crawlHistoryData(stockCode, from, to, RestorationType.qfq);
-//        System.out.println(stockDataList.size());
-//        for (HistoryStockData historyStockData : stockDataList) {
-//            System.out.println(historyStockData.getDate());
-//        }
-//        System.out.println(stockDataList);
+        String stockCode = "600000";
+        List<HistoryStockData> stockDataList = netEaseCrawler.crawlData(stockCode, from, to);
+        System.out.println(stockDataList.size());
+        for (HistoryStockData historyStockData : stockDataList) {
+            System.out.println(historyStockData.getDate());
+        }
+        System.out.println(stockDataList);
     }
 }

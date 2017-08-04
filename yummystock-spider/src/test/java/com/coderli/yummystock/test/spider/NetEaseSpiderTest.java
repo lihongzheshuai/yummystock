@@ -1,6 +1,5 @@
 package com.coderli.yummystock.test.spider;
 
-import com.coderli.yummystock.core.constant.RestorationType;
 import com.coderli.yummystock.core.entity.HistoryStockData;
 import com.coderli.yummystock.spider.spider.NetEaseHistoryDataSpider;
 import org.joda.time.DateTime;
@@ -38,7 +37,7 @@ public class NetEaseSpiderTest {
     @Test
     public void testCrawlHistoryData() {
         String stockCode = "600887";
-        List<HistoryStockData> stockDataList = netEaseCrawler.crawlHistoryData(stockCode, from, to, RestorationType.qfq);
+        List<HistoryStockData> stockDataList = netEaseCrawler.crawlData(stockCode, from, to);
 //        System.out.println(stockDataList.size());
 //        for (HistoryStockData historyStockData : stockDataList) {
 //            System.out.println(historyStockData.getDate());

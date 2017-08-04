@@ -16,10 +16,9 @@ public interface HistoryDataSpider<T> extends DataSpider {
      * @param stockCode       stock code
      * @param from            history date range begin
      * @param to              history date range end
-     * @param restorationType {@link RestorationType} 复权类型， 默认为qfq
      * @return
      */
-    T crawlHistoryData(String stockCode, Date from, Date to, RestorationType restorationType);
+    T crawlData(String stockCode, Date from, Date to);
     
     
 }

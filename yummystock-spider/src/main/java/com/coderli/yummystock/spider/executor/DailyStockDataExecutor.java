@@ -1,9 +1,12 @@
 package com.coderli.yummystock.spider.executor;
 
+import com.coderli.yummystock.core.entity.HistoryDataMetadata;
 import com.coderli.yummystock.core.entity.HistoryStockData;
 import com.coderli.yummystock.core.entity.Stock;
+import com.coderli.yummystock.core.service.HistoryDataMetadataService;
 import com.coderli.yummystock.core.service.HistoryDataService;
 import com.coderli.yummystock.core.service.StockService;
+import com.coderli.yummystock.core.util.DateUtil;
 import com.coderli.yummystock.spider.spider.DailyDataSpider;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,8 @@ public class DailyStockDataExecutor extends AbstractDailyStockDataExecutor {
     private HistoryDataService historyDataService;
     @Autowired
     private StockService stockService;
+    @Autowired
+    private HistoryDataMetadataService metadataService;
     
     @Override
     public void execute() {
@@ -34,10 +39,25 @@ public class DailyStockDataExecutor extends AbstractDailyStockDataExecutor {
             log.warn("No stock has been stored, Please get it first.");
             return;
         }
-        stocks.stream().forEach(stock -> {
-            List<HistoryStockData> historyStockDatas = dataSpider.crawlDailyData(stock.getCode());
-            historyDataService.saveHistoryDatas(historyStockDatas);
-        });
+        stocks.stream().forEach(stock -> doExecuteMetaData(stock));
+    }
+    
+    private void doExecuteMetaData(Stock stock) {
+        HistoryDataMetadata metadata = metadataService.getMetadata(stock.getCode());
+        if (metadata == null) {
+            log.error("No history metadata exists for stock {}. Plz init history data first.", stock.getCode());
+            return;
+        }
+        Date from = metadata.getEnd();
+        Date to = DateUtil.todayDate();
+        if (from.equals(to)) {
+            log.info("From date equals to date {}, no data need to be crawled.", from);
+            return;
+        }
+        List<HistoryStockData> historyStockDatas = dataSpider.crawlData(stock.getCode(), from, to);
+        historyDataService.saveHistoryDatas(historyStockDatas);
+        log.debug("Save metadata, start {}, end {}, code {}.", from, to, stock.getCode());
+        metadataService.updateMetadata(stock.getCode(), from, to);
     }
     
 }

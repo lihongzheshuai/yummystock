@@ -26,9 +26,9 @@ public class HistoryMetadataTest {
     @Test
     public void testSaveMetadata() {
         HistoryDataMetadata metadata = new HistoryDataMetadata();
-        metadata.setCode("600887");
+        metadata.setCode("600000");
         metadata.setBegin(DateUtil.yesterdayDate());
-        metadata.setEnd(DateUtil.todayDate());
+        metadata.setEnd(DateUtil.yesterdayDate());
         historyDataMetadataService.saveMetadata(metadata);
     }
     

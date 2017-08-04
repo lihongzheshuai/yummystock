@@ -66,13 +66,13 @@ public class DefaultStockHistoryDataInitializer implements StockHistoryDataIniti
         metadataService.removeAll();
     }
     
-    private void crawlAndSaveHistoryData(Stock stock, Date start, Date end, boolean clean) {
-        List<HistoryStockData> historyDatas = historyDataSpider.crawlHistoryData(stock.getCode(), start, end, null);
+    private void crawlAndSaveHistoryData(Stock stock, Date from, Date to, boolean clean) {
+        List<HistoryStockData> historyDatas = historyDataSpider.crawlData(stock.getCode(), from, to);
         log.debug("Get {} days history data of stock {}.", historyDatas.size(), stock.toString());
         if (!historyDatas.isEmpty()) {
             historyDataService.saveHistoryDatas(historyDatas);
+            metadataService.updateMetadata(stock.getCode(), from, to);
         }
-        
     }
     
 }

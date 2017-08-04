@@ -1,6 +1,5 @@
 package com.coderli.yummystock.spider.spider;
 
-import com.coderli.yummystock.core.constant.RestorationType;
 import com.coderli.yummystock.core.entity.HistoryDataMetadata;
 import com.coderli.yummystock.core.entity.HistoryStockData;
 import com.coderli.yummystock.core.http.HttpClient;
@@ -26,7 +25,7 @@ public class NetEaseHistoryDataSpider extends AbstractNetEaseDataSpider implemen
     private DataParser<File, List<HistoryStockData>> dataParser = new NetEaseHistoryDataParser();
     
     @Override
-    public List<HistoryStockData> crawlHistoryData(String stockCode, Date from, Date to, RestorationType restorationType) {
+    public List<HistoryStockData> crawlData(String stockCode, Date from, Date to) {
         log.debug("Get stock {} history data. From {} to {}.", stockCode, from, to);
         String url = generateUrl(stockCode, from, to);
         String filePath = getFilePath(stockCode, from, to);
@@ -38,13 +37,6 @@ public class NetEaseHistoryDataSpider extends AbstractNetEaseDataSpider implemen
             log.debug("History data file {} exists, just parse it.", filePath);
         }
         historyStockData = dataParser.parse(new File(filePath));
-        HistoryDataMetadata metadata = metadataService.getMetadata(stockCode);
-        if (metadata != null) {
-            // 更新metadata
-            updateMetadata(stockCode, from, to);
-        } else {
-            metadataService.saveMetadata(new HistoryDataMetadata(stockCode, from, to));
-        }
         return historyStockData;
     }
     
