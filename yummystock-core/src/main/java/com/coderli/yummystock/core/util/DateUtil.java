@@ -52,15 +52,11 @@ public class DateUtil {
     }
     
     public static Date todayDate() {
-        DateTime dateTime = new DateTime();
-        dateTime = dateTime.withMillisOfDay(0);
-        return dateTime.toDate();
+        return new DateTime().withMillisOfDay(0).toDate();
     }
     
     public static Date yesterdayDate() {
-        DateTime dateTime = new DateTime();
-        dateTime = dateTime.withMillisOfDay(0);
-        dateTime = dateTime.minusDays(1);
-        return dateTime.toDate();
+        return new DateTime().withMillisOfDay(0).minusDays(1).toDate();
     }
+    
 }

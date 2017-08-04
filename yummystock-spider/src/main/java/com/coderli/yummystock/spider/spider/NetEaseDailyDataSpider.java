@@ -40,7 +40,7 @@ public class NetEaseDailyDataSpider extends AbstractNetEaseDataSpider implements
             log.info("From date equals to date {}, no data need to be crawled.", from);
             return Collections.EMPTY_LIST;
         }
-        log.debug("Get stock {} history data. From {} to {}.", stockCode, from, to);
+        log.info("Get stock {} history data. From {} to {}.", stockCode, from, to);
         String url = generateUrl(stockCode, from, to);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         httpClient.writeToStream(url, outputStream);

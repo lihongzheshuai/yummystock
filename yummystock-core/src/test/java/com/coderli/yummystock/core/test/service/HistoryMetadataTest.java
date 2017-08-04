@@ -1,7 +1,8 @@
-package com.coderli.yummystock.core.test.mongo;
+package com.coderli.yummystock.core.test.service;
 
 import com.coderli.yummystock.core.entity.HistoryDataMetadata;
 import com.coderli.yummystock.core.service.HistoryDataMetadataService;
+import com.coderli.yummystock.core.test.mongo.MongoTestConfig;
 import com.coderli.yummystock.core.util.DateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,15 +27,16 @@ public class HistoryMetadataTest {
     public void testSaveMetadata() {
         HistoryDataMetadata metadata = new HistoryDataMetadata();
         metadata.setCode("600887");
-        metadata.setBegin(new Date());
-        metadata.setEnd(new Date());
+        metadata.setBegin(DateUtil.yesterdayDate());
+        metadata.setEnd(DateUtil.todayDate());
         historyDataMetadataService.saveMetadata(metadata);
     }
     
     @Test
     public void testGetMetadata() {
-        HistoryDataMetadata metadata = historyDataMetadataService.getMetadata("600177");
+        HistoryDataMetadata metadata = historyDataMetadataService.getMetadata("600000");
         System.out.println(metadata.getCode());
+        System.out.println(metadata.getBegin());
     }
     
     @Test

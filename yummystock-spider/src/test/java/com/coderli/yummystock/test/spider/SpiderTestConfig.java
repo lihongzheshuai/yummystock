@@ -13,7 +13,7 @@ import org.springframework.context.annotation.PropertySource;
  * @date 2016-12-05 23:55
  */
 @EnableConfigurationProperties
-@ComponentScan(basePackages = {"com.coderli.yummystock.spider", "com.coderli.yummystock.core.config", "com.coderli.yummystock.core.service", "com.coderli.yummystock.core.dao"})
+@ComponentScan(basePackages = {"com.coderli.yummystock.spider", "com.coderli.yummystock.core.config", "com.coderli.yummystock.core.service"})
 @PropertySource("classpath:application-test.properties")
 public class SpiderTestConfig {
     

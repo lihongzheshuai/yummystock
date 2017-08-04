@@ -11,6 +11,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -21,6 +22,7 @@ import java.util.concurrent.CountDownLatch;
 @EnableConfigurationProperties
 @ComponentScan(basePackages = {"com.coderli.yummystock.spider", "com.coderli.yummystock.core"})
 @PropertySource("classpath:application.properties")
+@EnableScheduling
 @Slf4j
 public class Bootstrap {
     

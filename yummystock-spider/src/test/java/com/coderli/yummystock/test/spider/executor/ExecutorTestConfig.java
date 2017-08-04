@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @date 2016-12-05 23:55
  */
 @EnableConfigurationProperties
-@ComponentScan(basePackages = {"com.coderli.yummystock.spider", "com.coderli.yummystock.core.http"})
+@ComponentScan(basePackages = {"com.coderli.yummystock.spider", "com.coderli.yummystock.core"})
 @PropertySource("classpath:application-test.properties")
 @EnableScheduling
 public class ExecutorTestConfig {

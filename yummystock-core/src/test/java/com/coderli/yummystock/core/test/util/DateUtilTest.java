@@ -37,6 +37,8 @@ public class DateUtilTest {
     
     @Test
     public void testToday() {
-        System.out.println(DateUtil.todayDate());
+        Date today = DateUtil.todayDate();
+        System.out.println(today);
+        System.out.println(today.getTimezoneOffset());
     }
 }
