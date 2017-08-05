@@ -39,7 +39,14 @@ public class DailyStockDataExecutor extends AbstractDailyStockDataExecutor {
             log.warn("No stock has been stored, Please get it first.");
             return;
         }
-        stocks.stream().forEach(stock -> doExecuteMetaData(stock));
+        if (haveTodayData()) {
+            log.info("Today stock data exist, get it now.");
+            stocks.stream().forEach(stock -> doExecuteMetaData(stock));
+        }
+    }
+    
+    private boolean haveTodayData() {
+        return false;
     }
     
     private void doExecuteMetaData(Stock stock) {
@@ -48,7 +55,7 @@ public class DailyStockDataExecutor extends AbstractDailyStockDataExecutor {
             log.error("No history metadata exists for stock {}. Plz init history data first.", stock.getCode());
             return;
         }
-        Date from = metadata.getEnd();
+        Date from = DateUtil.tomorrowOfDate(metadata.getEnd());
         Date to = DateUtil.todayDate();
         if (from.equals(to)) {
             log.info("From date equals to date {}, no data need to be crawled.", from);

@@ -4,6 +4,7 @@ import com.coderli.yummystock.core.entity.HistoryStockData;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,4 +15,5 @@ public interface HistoryDataRepository extends MongoRepository<HistoryStockData,
     
     List<HistoryStockData> findAllByStockCode(String code);
     
+    HistoryStockData findByStockCodeAndDate(String code, Date date);
 }

@@ -2,6 +2,7 @@ package com.coderli.yummystock.core.service;
 
 import com.coderli.yummystock.core.entity.HistoryStockData;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,4 +22,13 @@ public interface HistoryDataService {
     void saveSingleData(HistoryStockData historyStockData);
     
     List<HistoryStockData> findByStockCode(String stockCode);
+    
+    /**
+     * 获取指定股票，指定日期的历史数据
+     *
+     * @param stockCode
+     * @param date
+     * @return
+     */
+    HistoryStockData findData(String stockCode, Date date);
 }

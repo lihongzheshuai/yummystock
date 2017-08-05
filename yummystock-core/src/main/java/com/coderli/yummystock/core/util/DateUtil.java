@@ -55,8 +55,8 @@ public class DateUtil {
         return new DateTime().withMillisOfDay(0).toDate();
     }
     
-    public static Date tomorrowDate() {
-        return new DateTime().withMillisOfDay(0).plusDays(1).toDate();
+    public static Date tomorrowOfDate(Date date) {
+        return new DateTime(date).withMillisOfDay(0).plusDays(1).toDate();
     }
     
     public static Date yesterdayDate() {

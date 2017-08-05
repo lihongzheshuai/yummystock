@@ -12,7 +12,7 @@ import java.util.Date;
 @Slf4j
 public abstract class AbstractDailyStockDataExecutor implements SpiderExecutor {
     
-    @Scheduled(cron = "* 0 20 * * ?")
+    @Scheduled(cron = "* 30 22 ? * MON-FRI")
     public void schedule() {
         log.info("Start daily stock spider task at time {}.", new Date());
         execute();

@@ -30,13 +30,13 @@ public class NetEaseDailySpiderTest {
     
     @Before
     public void init() {
-        from = DateUtil.yesterdayDate();
-        to = DateUtil.todayDate();
+        from = DateUtil.parseDate("2017-08-04");
+        to = DateUtil.parseDate("2017-08-04");
     }
     
     @Test
     public void testCrawlDailyData() {
-        String stockCode = "600000";
+        String stockCode = "600111";
         List<HistoryStockData> stockDataList = netEaseCrawler.crawlData(stockCode, from, to);
         System.out.println(stockDataList.size());
         for (HistoryStockData historyStockData : stockDataList) {

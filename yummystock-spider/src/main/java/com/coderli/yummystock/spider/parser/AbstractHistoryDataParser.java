@@ -60,6 +60,8 @@ public abstract class AbstractHistoryDataParser<I, R> implements DataParser<I, R
         historyData.setVolumeOfTradingInMoney(Double.parseDouble(values[VOLUMN_OF_TRADING_IN_MONEY_COLUMN_INDEX]));
         historyData.setTotalMarketValue(Double.parseDouble(values[TOTAL_MARKET_VALUE_COLUMN_INDEX]));
         historyData.setCirculationMarketValue(Double.parseDouble(values[CIRCULATION_MARKET_VALUE_COLUMN_INDEX]));
+        // 设置主键
+        historyData.set_id(new HistoryStockData.HistoryDatekey(historyData.getStockCode(), historyData.getDate()));
     }
     
     private String formatCode(String code) {
