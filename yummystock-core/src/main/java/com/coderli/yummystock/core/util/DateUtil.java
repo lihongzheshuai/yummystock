@@ -63,4 +63,16 @@ public class DateUtil {
         return new DateTime().withMillisOfDay(0).minusDays(1).toDate();
     }
     
+    /**
+     * 判断日期一是否早于日期二
+     *
+     * @param one 日期一
+     * @param two 日期二
+     * @return 如果一早于二，则返回true
+     */
+    public static boolean isEarlierThan(Date one, Date two) {
+        DateTime timeOne = new DateTime(one);
+        DateTime timeTwo = new DateTime(two);
+        return timeOne.isBefore(timeTwo);
+    }
 }

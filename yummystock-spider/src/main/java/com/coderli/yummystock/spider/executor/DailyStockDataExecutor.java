@@ -39,14 +39,8 @@ public class DailyStockDataExecutor extends AbstractDailyStockDataExecutor {
             log.warn("No stock has been stored, Please get it first.");
             return;
         }
-        if (haveTodayData()) {
-            log.info("Today stock data exist, get it now.");
-            stocks.stream().forEach(stock -> doExecuteMetaData(stock));
-        }
-    }
-    
-    private boolean haveTodayData() {
-        return false;
+        log.info("Today stock data exist, get it now.");
+        stocks.stream().forEach(stock -> doExecuteMetaData(stock));
     }
     
     private void doExecuteMetaData(Stock stock) {
@@ -57,11 +51,16 @@ public class DailyStockDataExecutor extends AbstractDailyStockDataExecutor {
         }
         Date from = DateUtil.tomorrowOfDate(metadata.getEnd());
         Date to = DateUtil.todayDate();
-        if (from.equals(to)) {
-            log.info("From date equals to date {}, no data need to be crawled.", from);
+        if (!DateUtil.isEarlierThan(from, to)) {
+            log.warn("FROM date is later than TO date, just skip crawling tody. FROM {} <-> TO {}.", from, to);
             return;
         }
         List<HistoryStockData> historyStockDatas = dataSpider.crawlData(stock.getCode(), from, to);
+        if (historyStockDatas == null || historyStockDatas.isEmpty()) {
+            log.warn("No daily data get. Just skip to next. Current stock: {}.", stock);
+            return;
+        }
+        log.debug("Get {} days data of stock {}.", historyStockDatas.size(), stock);
         historyDataService.saveHistoryDatas(historyStockDatas);
         log.debug("Save metadata, start {}, end {}, code {}.", from, to, stock.getCode());
         metadataService.updateMetadata(stock.getCode(), from, to);
