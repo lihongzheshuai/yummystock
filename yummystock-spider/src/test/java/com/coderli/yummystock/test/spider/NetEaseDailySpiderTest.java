@@ -31,7 +31,7 @@ public class NetEaseDailySpiderTest {
     @Before
     public void init() {
         from = DateUtil.parseDate("2017-08-04");
-        to = DateUtil.parseDate("2017-08-04");
+        to = DateUtil.parseDate("2017-08-07");
     }
     
     @Test

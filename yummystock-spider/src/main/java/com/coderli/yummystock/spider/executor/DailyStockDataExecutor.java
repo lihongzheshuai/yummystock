@@ -58,6 +58,7 @@ public class DailyStockDataExecutor extends AbstractDailyStockDataExecutor {
         List<HistoryStockData> historyStockDatas = dataSpider.crawlData(stock.getCode(), from, to);
         if (historyStockDatas == null || historyStockDatas.isEmpty()) {
             log.warn("No daily data get. Just skip to next. Current stock: {}.", stock);
+            //TODO 初始化历史数据及元数据
             return;
         }
         log.debug("Get {} days data of stock {}.", historyStockDatas.size(), stock);
