@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -41,7 +42,8 @@ public class JuheStockSpider extends AbstractStockSpider {
         List<Stock> result = new ArrayList<>();
         JuheHttpResponse response = getOnePageData(type, page, pageCountType);
         if (!isSuccess(response)) {
-            log.warn("Get {} stock error. Page: {}, With reason: {}.", type, page, response.getReason());
+            log.error("Get {} stock first page error. With reason: {}. Abrot!!", type, page, response.getReason());
+            return Collections.emptyList();
         }
         JuheHttpPageResult pageResult = response.getPageResult();
         result.addAll(pageResult.getData());
@@ -50,6 +52,7 @@ public class JuheStockSpider extends AbstractStockSpider {
             response = getOnePageData(type, page, pageCountType);
             if (!isSuccess(response)) {
                 log.warn("Get {} stock error. Page: {}, With reason: {}.", type, page, response.getReason());
+                continue;
             }
             pageResult = response.getPageResult();
             result.addAll(pageResult.getData());

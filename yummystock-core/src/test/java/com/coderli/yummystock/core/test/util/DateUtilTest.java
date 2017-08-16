@@ -34,4 +34,11 @@ public class DateUtilTest {
         DateTime dateTime = DateTime.parse(dateStr);
         return dateTime.toDate();
     }
+    
+    @Test
+    public void testToday() {
+        Date today = DateUtil.todayDate();
+        System.out.println(today);
+        System.out.println(today.getTimezoneOffset());
+    }
 }

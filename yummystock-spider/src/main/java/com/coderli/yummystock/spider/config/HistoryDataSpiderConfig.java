@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2016-11-28 23:53
  */
 @Configuration
-public class SpiderContextConfig {
+public class HistoryDataSpiderConfig {
     
     @Bean
     @ConfigurationProperties(prefix = "spider.historydata")

@@ -11,5 +11,11 @@
 
     <artifactId>yummystock-analyzer</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.coderli</groupId>
+            <artifactId>yummystock-core</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

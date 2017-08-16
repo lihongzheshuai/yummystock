@@ -50,4 +50,29 @@ public class DateUtil {
         DateTime dateTime = formatter.parseDateTime(dateString);
         return dateTime.toDate();
     }
+    
+    public static Date todayDate() {
+        return new DateTime().withMillisOfDay(0).toDate();
+    }
+    
+    public static Date tomorrowOfDate(Date date) {
+        return new DateTime(date).withMillisOfDay(0).plusDays(1).toDate();
+    }
+    
+    public static Date yesterdayDate() {
+        return new DateTime().withMillisOfDay(0).minusDays(1).toDate();
+    }
+    
+    /**
+     * 判断日期一是否早于/等于日期二
+     *
+     * @param one 日期一
+     * @param two 日期二
+     * @return 如果一早于/等于二，则返回true
+     */
+    public static boolean isEarlierThan(Date one, Date two) {
+        DateTime timeOne = new DateTime(one);
+        DateTime timeTwo = new DateTime(two);
+        return !timeOne.isAfter(timeTwo);
+    }
 }

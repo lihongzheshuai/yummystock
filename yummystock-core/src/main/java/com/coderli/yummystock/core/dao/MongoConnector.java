@@ -37,8 +37,18 @@ public class MongoConnector extends MongoTemplate {
         bulkOperations.execute();
     }
     
+    public <T> void bulkSave(List<T> objects, String collectionName) {
+        BulkOperations bulkOperations = bulkOps(BulkOperations.BulkMode.ORDERED, collectionName);
+        bulkOperations.insert(objects);
+        bulkOperations.execute();
+    }
+    
     public <T> void removeAll(Class<T> type) {
-        getCollection(getCollectionName(type)).drop();
+        removeAll(getCollectionName(type));
+    }
+    
+    public <T> void removeAll(String collectionName) {
+        getCollection(collectionName).drop();
     }
     
 }
